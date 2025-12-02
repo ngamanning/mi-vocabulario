@@ -38,6 +38,14 @@
         return 'Verbs';
       }
       
+      // Adverb patterns
+      const adverbs = ['casi', 'muy', 'bien', 'mal', 'ya', 'aquí', 'allí', 'ahora', 
+                       'también', 'tampoco', 'solo', 'además', 'quizás', 'bastante',
+                       'demasiado', 'tanto', 'poco', 'mucho', 'pronto', 'tarde', 'lejos'];
+      if (wordLower.endsWith('mente') || adverbs.includes(wordLower)) {
+        return 'Adverbs';
+      }
+      
       // Time expressions
       const timeWords = ['ayer', 'hoy', 'mañana', 'luego', 'después', 'antes', 'siempre', 'nunca', 
                          'normalmente', 'semana', 'mes', 'año', 'día', 'noche', 'tarde'];
@@ -87,7 +95,7 @@
     };
 
     const categories = [
-      'Adjectives', 'Nouns', 'Verbs', 'Time Expressions', 
+      'Adjectives', 'Adverbs', 'Nouns', 'Verbs', 'Time Expressions', 
       'Common Phrases', 'Conjunctions', 'Prepositions', 'Indefinite Pronouns'
     ];
 
@@ -861,32 +869,34 @@
             )}
             
             {activeTab === 'chat' && (
-              <div className="card chat-container">
-                <div className="chat-messages">
-                  {chatMessages.map((msg, i) => (
-                    <div key={i} className={`chat-message ${msg.role}`}>
-                      {msg.content}
-                    </div>
-                  ))}
-                  {isChatLoading && (
-                    <div className="chat-message assistant">
-                      <span className="loading-dots">Thinking</span>
-                    </div>
-                  )}
-                  <div ref={chatEndRef} />
+              <div className="card">
+                <div style={{ textAlign: 'center', padding: '40px 20px' }}>
+                  <div style={{ fontSize: '3rem', marginBottom: '16px' }}>💬</div>
+                  <h3 style={{ fontFamily: "'Crimson Pro', Georgia, serif", color: '#5d4e37', margin: '0 0 12px 0', fontSize: '1.4rem' }}>Chat with Bubble</h3>
+                  <p style={{ color: '#8b7355', lineHeight: '1.6', margin: '0 0 24px 0' }}>
+                    For help with examples, grammar questions, or practice — open the Claude app!
+                  </p>
+                  <a 
+                    href="https://claude.ai" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-block',
+                      padding: '14px 28px',
+                      background: 'linear-gradient(135deg, #8b7355 0%, #6b5a45 100%)',
+                      color: 'white',
+                      textDecoration: 'none',
+                      borderRadius: '10px',
+                      fontWeight: '600',
+                      fontSize: '1rem'
+                    }}
+                  >
+                    Open Claude →
+                  </a>
+                  <p style={{ color: '#a89070', fontSize: '0.85rem', marginTop: '20px' }}>
+                    Tip: Share your vocab sheet with me and I can quiz you!
+                  </p>
                 </div>
-                <form className="chat-input-row" onSubmit={handleChatSubmit}>
-                  <input
-                    type="text"
-                    value={chatInput}
-                    onChange={(e) => setChatInput(e.target.value)}
-                    placeholder="Ask Bubble..."
-                    disabled={isChatLoading}
-                  />
-                  <button type="submit" className="chat-send-btn" disabled={isChatLoading}>
-                    Send
-                  </button>
-                </form>
               </div>
             )}
             
